@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require_relative './lib/player'
+require_relative './lib/game'
 
 class Battle < Sinatra::Base
   enable :sessions
@@ -11,6 +12,7 @@ class Battle < Sinatra::Base
   post '/names' do
     $Player_1 = Player.new(params[:Player_1])
     $Player_2 = Player.new(params[:Player_2])
+    $game = Game.new($Player_1, $Player_2)
     redirect '/play'
   end
 
@@ -19,7 +21,7 @@ class Battle < Sinatra::Base
   end
 
   get '/attack' do
-    $Player_2.damage_health
+    $game.damage_health($Player_2)
     erb :attack
   end
 
