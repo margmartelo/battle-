@@ -19,6 +19,7 @@ class Battle < Sinatra::Base
   end
 
   get '/attack' do
+    $Player_2.damage_health
     erb :attack
   end
 
